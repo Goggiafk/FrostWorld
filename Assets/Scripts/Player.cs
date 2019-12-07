@@ -33,6 +33,7 @@ public class Player : MonoBehaviour
         rig = GetComponent<Rigidbody>();
         Time.timeScale = 1;
         checking = true;
+        Collecting.CheckTool = false;
     }
 
     // Update is called once per frame

@@ -7,6 +7,7 @@ public class Crafting : MonoBehaviour
     public Player player;
     public GameObject obj;
     GameObject hammer;
+    public GameObject molotok;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,9 +33,18 @@ public class Crafting : MonoBehaviour
 
         if ((wood != -1) && (metal != -1))
         {
-            GameObject obj = Instantiate(Resources.Load<GameObject>("huh"));
-            obj.transform.position = player.transform.position + new Vector3(0, +2, 0);
 
+                if (Collecting.CheckTool == true)
+                {
+                GameObject obj = Instantiate(Resources.Load<GameObject>("huh"));
+                obj.transform.position = player.transform.position + new Vector3(0, +2, 0);
+            }
+                else
+                {
+                    molotok.SetActive(true);
+                    Collecting.CheckTool = true;
+                }
+            
             player.inventory.resources[wood].count -= 1;
 
             player.inventory.resources[metal].count -= 1;

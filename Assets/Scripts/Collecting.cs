@@ -15,7 +15,7 @@ public class Collecting : MonoBehaviour
     int save;
     GameObject[] mass = new GameObject[3];
     public GameObject Hammer;
-    bool CheckTool;
+    public static bool CheckTool;
     // Start is called before the first frame update
     void Start()
     {
@@ -74,9 +74,14 @@ public class Collecting : MonoBehaviour
                 collecting.SetActive(true);
                 if (Input.GetKeyDown(KeyCode.E))
                 {
-                    Destroy(hit.transform.gameObject);
-                    Hammer.SetActive(true);
-                    CheckTool = true;
+                    if (CheckTool == true)
+                    { }
+                    else
+                    {
+                        Destroy(hit.transform.gameObject);
+                        Hammer.SetActive(true);
+                        CheckTool = true;
+                    }
                 }
             }
         }

@@ -26,17 +26,19 @@ public class Trigger : MonoBehaviour
             bool check = false;
             for (int i = 0; i < player.inventory.resources.Count; i++)
             {
-                if (player.inventory.resources[i].type == ResourcesType.Wood && player.inventory.resources[i].count >= 5)
+                if ( player.inventory.resources[i].type == ResourcesType.Wood && player.inventory.resources[i].count >= 5)
                 {
-                    check = true;
-                    wall.SetActive(true);
-                    wall1.SetActive(false);
-                    trig.SetActive(false);
-                    wall.GetComponent<Animation>().Play();
-                    player.inventory.resources[i].count -= 5;
-                    if (player.inventory.resources[i].type == ResourcesType.Wood && player.inventory.resources[i].count == 5)
-                    { player.inventory.resources[i].icon = null; }
-
+                    if(Collecting.CheckTool == true)
+                        {
+                        check = true;
+                        wall.SetActive(true);
+                        wall1.SetActive(false);
+                        trig.SetActive(false);
+                        wall.GetComponent<Animation>().Play();
+                        player.inventory.resources[i].count -= 5;
+                        if (player.inventory.resources[i].type == ResourcesType.Wood && player.inventory.resources[i].count == 5)
+                        { player.inventory.resources[i].icon = null; }
+                    }
                 }
 
             }
