@@ -11,6 +11,7 @@ public class Crafting : MonoBehaviour
     public GameObject molotok;
     public GameObject notenough;
     public GameObject solarpanel;
+    public GameObject sp;
     public static bool solar;
     // Start is called before the first frame update
     void Start()
@@ -72,6 +73,7 @@ public class Crafting : MonoBehaviour
                 case Recepies.SolarPanel:
                     solar = true;
                     solarpanel.SetActive(true);
+                    sp.SetActive(true);
                     for (int i = 0; i < rec.recepies.Count; i++)
                     {
                         craft = false;
@@ -90,6 +92,7 @@ public class Crafting : MonoBehaviour
             }
             
         }
+
     }
 
     IEnumerator Timer(float time, System.Action action)
