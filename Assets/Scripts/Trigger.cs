@@ -28,7 +28,7 @@ public class Trigger : MonoBehaviour
             {
                 if ( player.inventory.resources[i].type == ResourcesType.Wood && player.inventory.resources[i].count >= 5)
                 {
-                    if(Collecting.CheckTool == true)
+                    if(Collecting.checkTool == true)
                         {
                         check = true;
                         wall.SetActive(true);

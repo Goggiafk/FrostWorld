@@ -23,9 +23,22 @@ public class Inventory
                 resources[i].weight += resource.weight;
                 check = true;
             } 
-        } if (!check)
+        }
+        if (!check)
         {
             resources.Add(resource);
+        }
+    }
+    public void Remove(ResourcesType resourcesType)
+    {
+
+        for (int i = 0; i < resources.Count; i++)
+        {
+            if (resources[i].type == resourcesType)
+            {
+                resources.RemoveAt(i);
+                break;
+            }
         }
     }
 }

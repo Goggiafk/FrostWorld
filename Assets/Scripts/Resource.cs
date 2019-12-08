@@ -6,7 +6,7 @@ public enum ResourcesType
 {
     Wood,
     Metal,
-    Stone,
+    Foto,
 }
 
 public class Resource : MonoBehaviour
@@ -28,7 +28,8 @@ public class Resource : MonoBehaviour
             case ResourcesType.Metal:
                 weight = 100;
                 break;
-            case ResourcesType.Stone:
+            case ResourcesType.Foto:
+                weight = 250;
                 break;
             default:
                 break;
