@@ -10,6 +10,7 @@ public class Energy : MonoBehaviour
     float time;
     public RectTransform energyBar;
     public static float energi;
+    public GameObject inventory;
 
     // Start is called before the first frame update
     void Start()
@@ -24,9 +25,22 @@ public class Energy : MonoBehaviour
         if (time > 5)
         {
             energi -= 1 * Time.deltaTime;
+            if(Player.torch == true)
+                energi -= 1 * Time.deltaTime;
+            if (Player.sprint == true)
+                energi -= 2 * Time.deltaTime;
+            if (Crafting.solar == true)
+            {
+                energi += 1.5f * Time.deltaTime;
+                Energy.energi = Mathf.Clamp(Energy.energi, 0, 100);
+                if (Player.movi==true)
+                energi -= 0.5f * Time.deltaTime;
+                Energy.energi = Mathf.Clamp(Energy.energi, 0, 100);
+            }
             energyBar.sizeDelta = new Vector3(energyBar.parent.GetComponent<RectTransform>().sizeDelta.x * energi / 100, energyBar.sizeDelta.y, 0);
             if (energi <= 20)
             {
+                inventory.SetActive(false);
                 deathScreen.SetActive(true);
                 Time.timeScale = 0;
             }

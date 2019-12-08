@@ -4,58 +4,105 @@ using UnityEngine;
 
 public class Crafting : MonoBehaviour
 {
+    public List<Recipe> recipes;
     public Player player;
-    public GameObject obj;
-    GameObject hammer;
+    GameObject obj;
+    public GameObject hammer;
     public GameObject molotok;
+    public GameObject notenough;
+    public GameObject solarpanel;
+    public static bool solar;
     // Start is called before the first frame update
     void Start()
     {
 
     }
 
-    public void DropObject()
+    public void DropObject(int index)
     {
-        int wood = -1;
-        int metal = -1;
-        for (int i = 0; i < player.inventory.resources.Count; i++)
+        bool craft = false;
+        Recipe rec = recipes[index];
+        for (int i = 0; i < rec.recepies.Count; i++)
         {
-            if (player.inventory.resources[i].type == ResourcesType.Wood && player.inventory.resources[i].count >= 1)
+            craft = false;
+            for (int j = 0; j < player.inventory.resources.Count; j++)
             {
-                wood = i;
+                if (rec.recepies[i].tip == player.inventory.resources[j].type && player.inventory.resources[j].count >= rec.recepies[i].count)
+                {
+                    craft = true;
+                    break;
+                }
             }
-            if (player.inventory.resources[i].type == ResourcesType.Metal && player.inventory.resources[i].count >= 1)
+            if (!craft)
             {
-                metal = i;
+               
+                    StartCoroutine(Timer(0, () => { notenough.SetActive(true); }));
+                    StartCoroutine(Timer(1, () => { notenough.SetActive(false); }));
+                return;
             }
         }
-
-
-        if ((wood != -1) && (metal != -1))
+        if (craft == true)
         {
-
-                if (Collecting.CheckTool == true)
-                {
-                GameObject obj = Instantiate(Resources.Load<GameObject>("huh"));
-                obj.transform.position = player.transform.position + new Vector3(0, +2, 0);
+            switch (rec.rec)
+            {
+                case Recepies.Hammer:
+                    if (Collecting.checkTool == true)
+                    {
+                        GameObject obj = Instantiate(Resources.Load<GameObject>("huh"));
+                        obj.transform.position = player.transform.position + new Vector3(0, +2, 0);
+                    }
+                    else
+                    {
+                        molotok.SetActive(true);
+                        Collecting.checkTool = true;
+                    }
+                    for (int i = 0; i < rec.recepies.Count; i++)
+                    {
+                        craft = false;
+                        for (int j = 0; j < player.inventory.resources.Count; j++)
+                        {
+                            if (rec.recepies[i].tip == player.inventory.resources[j].type && player.inventory.resources[j].count >= rec.recepies[i].count)
+                            {
+                                player.inventory.resources[j].count -= rec.recepies[i].count;
+                                break;
+                            }
+                        }
+                    }
+                    break;
+                case Recepies.SolarPanel:
+                    solar = true;
+                    solarpanel.SetActive(true);
+                    for (int i = 0; i < rec.recepies.Count; i++)
+                    {
+                        craft = false;
+                        for (int j = 0; j < player.inventory.resources.Count; j++)
+                        {
+                            if (rec.recepies[i].tip == player.inventory.resources[j].type && player.inventory.resources[j].count >= rec.recepies[i].count)
+                            {
+                                player.inventory.resources[j].count -= rec.recepies[i].count;
+                                break;
+                            }
+                        }
+                    }
+                    break;
+                default:
+                    break;
             }
-                else
-                {
-                    molotok.SetActive(true);
-                    Collecting.CheckTool = true;
-                }
             
-            player.inventory.resources[wood].count -= 1;
-
-            player.inventory.resources[metal].count -= 1;
-
-
         }
     }
 
-    
-        // Update is called once per frame
-        void Update()
+    IEnumerator Timer(float time, System.Action action)
+    {
+        while (time > 0)
+        {
+            time -= Time.deltaTime;
+            yield return null;
+        }
+        action();
+    }
+    // Update is called once per frame
+    void Update()
         {
 
         }

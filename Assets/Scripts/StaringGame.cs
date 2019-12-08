@@ -23,6 +23,10 @@ public class StaringGame : MonoBehaviour
     }
 
     // Update is called once per frame
+    public void Quit()
+    {
+        Application.Quit();
+    }
     void Update()
     {
         

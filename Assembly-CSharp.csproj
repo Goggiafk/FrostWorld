@@ -69,10 +69,13 @@
     <Compile Include="Assets\Scripts\Energy.cs" />
     <Compile Include="Assets\Scripts\HeadRotation.cs" />
     <Compile Include="Assets\Scripts\Health.cs" />
+    <Compile Include="Assets\Scripts\Info.cs" />
     <Compile Include="Assets\Scripts\Inventory.cs" />
     <Compile Include="Assets\Scripts\InventoryCell.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
+    <Compile Include="Assets\Scripts\Recipe.cs" />
     <Compile Include="Assets\Scripts\Resource.cs" />
+    <Compile Include="Assets\Scripts\ResourceInfo.cs" />
     <Compile Include="Assets\Scripts\Sensivity.cs" />
     <Compile Include="Assets\Scripts\SnowTriggerFalse.cs" />
     <Compile Include="Assets\Scripts\SnowTriggerTrue.cs" />

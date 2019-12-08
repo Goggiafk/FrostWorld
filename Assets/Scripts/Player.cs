@@ -24,8 +24,15 @@ public class Player : MonoBehaviour
     public GameObject deathScreen;
     public GameObject snow1;
     public GameObject snow2;
+    public GameObject hammer;
+    public GameObject molotok;
     public static bool checking;
-    float save;
+    public Player player;
+    public static float save;
+    public static bool torch;
+    public static bool sprint;
+    public GameObject inv;
+    public static bool movi;
 
     void Start()
     {
@@ -33,7 +40,10 @@ public class Player : MonoBehaviour
         rig = GetComponent<Rigidbody>();
         Time.timeScale = 1;
         checking = true;
-        Collecting.CheckTool = false;
+        Collecting.checkTool = false;
+        torch = false;
+        sprint = false;
+        movi = false;
     }
 
     // Update is called once per frame
@@ -57,10 +67,13 @@ public class Player : MonoBehaviour
             {
                 windowMain.gameObject.SetActive(true);
                 windowMain.Show();
+                save = PlayerPrefs.GetFloat("sensivity");
+                PlayerPrefs.SetFloat("sensivity", 0);
             }
             else
             {
                 windowMain.gameObject.SetActive(false);
+                PlayerPrefs.SetFloat("sensivity", save); 
             }
         if (PlayerPrefs.HasKey("particles"))
         {
@@ -79,13 +92,33 @@ public class Player : MonoBehaviour
             }
         }
         if (Input.GetKeyDown(KeyCode.Escape))
-        {
+        { 
             menu.SetActive(true);
             Time.timeScale = 0;
          
         }
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            if(molotok.activeInHierarchy)
+            {
+                molotok.SetActive(false);
+                Collecting.checkTool = false;
+                GameObject obj = Instantiate(Resources.Load<GameObject>("Molot"));
+                obj.transform.position = player.transform.position + new Vector3(0, +2, 0);
+            }
+            if(hammer.activeInHierarchy)
+            {
+                hammer.SetActive(false);
+                Collecting.checkTool = false;
+                GameObject obj = Instantiate(Resources.Load<GameObject>("huh"));
+                obj.transform.position = player.transform.position + new Vector3(0, +2, 0);
+            }
+        }
         if (Input.GetKeyDown(KeyCode.F))
+        {
             lighter.SetActive(!lighter.activeInHierarchy);
+            torch = !torch;
+        }
         if (Input.GetKey(KeyCode.W))
             moving += transform.forward * speed * Time.deltaTime;
         if (Input.GetKey(KeyCode.A))
@@ -94,8 +127,15 @@ public class Player : MonoBehaviour
             moving -= transform.forward * speed * Time.deltaTime;
         if (Input.GetKey(KeyCode.D))
             moving += transform.right * speed * Time.deltaTime;
+        if (moving == transform.position)
+            movi = false;
+        else
+            movi = true;
         if (Input.GetKey(KeyCode.LeftShift))
+        {
             speed = addSpeed;
+            sprint = !sprint;
+        }
         else if (Input.GetKeyUp(KeyCode.LeftShift)) speed -= 15;
         Ray ray = new Ray(transform.position, -transform.up);
         RaycastHit hit;

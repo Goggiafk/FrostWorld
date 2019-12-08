@@ -10,6 +10,7 @@ TagManager:
   - Energy
   - Ice
   - Tools
+  - CraftedTool
   layers:
   - Default
   - TransparentFX

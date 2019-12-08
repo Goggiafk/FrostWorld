@@ -42,6 +42,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 18.183535, y: 7.176702, z: 6.2443156}
   m_Center: {x: 3.0949101, y: 31.66989, z: -3.770271}
+--- !u!65 &6930877138615821987
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6209640840617542464}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 38.253353, y: 62.97334, z: 35.834522}
+  m_Center: {x: 5.333582, y: 18.414068, z: -4.2629995}
 --- !u!1001 &2669788400307608137
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -52,7 +65,12 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: d5b447738de4b4f4db4cd27b8a53705f,
         type: 3}
       propertyPath: m_Name
-      value: hummer Variant
+      value: huh
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: d5b447738de4b4f4db4cd27b8a53705f,
+        type: 3}
+      propertyPath: m_TagString
+      value: CraftedTool
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: d5b447738de4b4f4db4cd27b8a53705f,
         type: 3}

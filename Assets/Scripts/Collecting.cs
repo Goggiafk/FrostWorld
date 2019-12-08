@@ -15,13 +15,24 @@ public class Collecting : MonoBehaviour
     int save;
     GameObject[] mass = new GameObject[3];
     public GameObject Hammer;
-    public static bool CheckTool;
+    public GameObject Molotok;
+    public GameObject Request;
+    public static bool checkTool;
     // Start is called before the first frame update
     void Start()
     {
         mass = Resources.LoadAll<GameObject>("Prefabs");
     }
 
+     IEnumerator Timer(float time,System.Action action)
+    {
+        while (time>0)
+        {
+            time -= Time.deltaTime;
+            yield return null;
+        }
+        action();
+    }
     // Update is called once per frame
 
     void Update()
@@ -52,8 +63,23 @@ public class Collecting : MonoBehaviour
                 collecting.SetActive(true);
                 if (Input.GetKeyDown(KeyCode.E))
                 {
-                    Destroy(hit.transform.gameObject);
-                    player.inventory.Add(resource);
+                    if (resource.type != ResourcesType.Foto)
+                    {
+                            Destroy(hit.transform.gameObject);
+                            player.inventory.Add(resource);
+                    }
+                    else
+                    {
+                        if (checkTool == true)
+                        {
+                            Destroy(hit.transform.gameObject);
+                            player.inventory.Add(resource);
+                        } else
+                        {
+                            StartCoroutine(Timer(0,()=> { Request.SetActive(true); }));
+                            StartCoroutine(Timer(1, () => { Request.SetActive(false); }));
+                        }
+                    }
                 }
             }
             else if (hit.transform.tag == "Energy")
@@ -74,13 +100,28 @@ public class Collecting : MonoBehaviour
                 collecting.SetActive(true);
                 if (Input.GetKeyDown(KeyCode.E))
                 {
-                    if (CheckTool == true)
+                    if (checkTool == true)
                     { }
                     else
                     {
                         Destroy(hit.transform.gameObject);
                         Hammer.SetActive(true);
-                        CheckTool = true;
+                        checkTool = true;
+                    }
+                }
+            }
+            else if (hit.transform.tag == "CraftedTool")
+            {
+                collecting.SetActive(true);
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    if (checkTool == true)
+                    { }
+                    else
+                    {
+                        Destroy(hit.transform.gameObject);
+                        Molotok.SetActive(true);
+                        checkTool = true;
                     }
                 }
             }
