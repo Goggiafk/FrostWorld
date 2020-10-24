@@ -1,0 +1,11 @@
+newmtl wire_006135006
+Ns 100.000
+d 1.00000
+illum 2
+Kd 1.00000 1.00000 1.00000
+Ka 0.00000 0.00000 0.00000
+Ks 1.00000 1.00000 1.00000
+Ke 0.00000e+0 0.00000e+0 0.00000e+0
+map_Kd leg_wire_006135006_color.tga
+map_Ks leg_wire_006135006_gloss.tga
+map_bump leg_wire_006135006_nmap.tga
